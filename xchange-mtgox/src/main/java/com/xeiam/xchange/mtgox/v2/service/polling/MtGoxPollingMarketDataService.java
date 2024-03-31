@@ -78,11 +78,11 @@ public class MtGoxPollingMarketDataService extends BasePollingExchangeService im
       // Request data
       MtGoxTickerWrapper mtGoxTickerWrapper = mtGoxV2.getTicker(tradableIdentifier, currency);
 
-      if (mtGoxTickerWrapper.getResult().equals("success")) {
+      if ("success".equals(mtGoxTickerWrapper.getResult())) {
         // Adapt to XChange DTOs
         return MtGoxAdapters.adaptTicker(mtGoxTickerWrapper.getMtGoxTicker());
       }
-      else if (mtGoxTickerWrapper.getResult().equals("error")) {
+      else if ("error".equals(mtGoxTickerWrapper.getResult())) {
         throw new ExchangeException("Error calling getTicker(): " + mtGoxTickerWrapper.getError());
       }
       else {
@@ -101,7 +101,7 @@ public class MtGoxPollingMarketDataService extends BasePollingExchangeService im
     try {
       // Request data
       MtGoxDepthWrapper mtGoxDepthWrapper = mtGoxV2.getDepth(tradableIdentifier, currency);
-      if (mtGoxDepthWrapper.getResult().equals("success")) {
+      if ("success".equals(mtGoxDepthWrapper.getResult())) {
         // Adapt to XChange DTOs
         List<LimitOrder> asks = MtGoxAdapters.adaptOrders(mtGoxDepthWrapper.getMtGoxDepth().getAsks(), currency, "ask", "");
         List<LimitOrder> bids = MtGoxAdapters.adaptOrders(mtGoxDepthWrapper.getMtGoxDepth().getBids(), currency, "bid", "");
@@ -109,7 +109,7 @@ public class MtGoxPollingMarketDataService extends BasePollingExchangeService im
 
         return new OrderBook(date, asks, bids);
       }
-      else if (mtGoxDepthWrapper.getResult().equals("error")) {
+      else if ("error".equals(mtGoxDepthWrapper.getResult())) {
         throw new ExchangeException("Error calling getPartialOrderBook(): " + mtGoxDepthWrapper.getError());
       }
       else {
@@ -127,14 +127,14 @@ public class MtGoxPollingMarketDataService extends BasePollingExchangeService im
 
     try {
       MtGoxDepthWrapper mtGoxDepthWrapper = mtGoxV2.getFullDepth(tradableIdentifier, currency);
-      if (mtGoxDepthWrapper.getResult().equals("success")) {
+      if ("success".equals(mtGoxDepthWrapper.getResult())) {
         // Adapt to XChange DTOs
         List<LimitOrder> asks = MtGoxAdapters.adaptOrders(mtGoxDepthWrapper.getMtGoxDepth().getAsks(), currency, "ask", "");
         List<LimitOrder> bids = MtGoxAdapters.adaptOrders(mtGoxDepthWrapper.getMtGoxDepth().getBids(), currency, "bid", "");
         Date date = new Date(mtGoxDepthWrapper.getMtGoxDepth().getMicroTime() / 1000);
         return new OrderBook(date, asks, bids);
       }
-      else if (mtGoxDepthWrapper.getResult().equals("error")) {
+      else if ("error".equals(mtGoxDepthWrapper.getResult())) {
         throw new ExchangeException("Error calling getFullOrderBook(): " + mtGoxDepthWrapper.getError());
       }
       else {
@@ -163,10 +163,10 @@ public class MtGoxPollingMarketDataService extends BasePollingExchangeService im
         mtGoxTradeWrapper = mtGoxV2.getTrades(tradableIdentifier, currency);
       }
 
-      if (mtGoxTradeWrapper.getResult().equals("success")) {
+      if ("success".equals(mtGoxTradeWrapper.getResult())) {
         return MtGoxAdapters.adaptTrades(mtGoxTradeWrapper.getMtGoxTrades());
       }
-      else if (mtGoxTradeWrapper.getResult().equals("error")) {
+      else if ("error".equals(mtGoxTradeWrapper.getResult())) {
         throw new ExchangeException("Error calling getTrades(): " + mtGoxTradeWrapper.getError());
       }
       else {

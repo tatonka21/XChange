@@ -60,7 +60,7 @@ public class KrakenAdapters {
 
   private static LimitOrder adaptOrder(BigDecimal[] order, String orderType, String currency, String tradableIdentifier) {
 
-    OrderType type = orderType.equalsIgnoreCase("asks") ? OrderType.ASK : OrderType.BID;
+    OrderType type = "asks".equalsIgnoreCase(orderType) ? OrderType.ASK : OrderType.BID;
     Date timeStamp = new Date(order[2].longValue() * 1000);
     BigMoney price = BigMoney.of(CurrencyUnit.of(currency), order[0]);
     BigDecimal volume = order[1];
@@ -92,7 +92,7 @@ public class KrakenAdapters {
 
     List<Trade> trades = new LinkedList<Trade>();
     for (String[] krakenTradeInformation : krakenTrades) {
-      OrderType type = krakenTradeInformation[3].equalsIgnoreCase("s") ? OrderType.ASK : OrderType.BID;
+      OrderType type = "s".equalsIgnoreCase(krakenTradeInformation[3]) ? OrderType.ASK : OrderType.BID;
       BigDecimal tradableAmount = new BigDecimal(krakenTradeInformation[1]);
       BigMoney price = BigMoney.of(CurrencyUnit.of(currency), new BigDecimal(krakenTradeInformation[0]));
       Date timestamp = new Date((long) (Double.valueOf(krakenTradeInformation[2]) * 1000L));
@@ -130,7 +130,7 @@ public class KrakenAdapters {
     List<LimitOrder> limitOrders = new LinkedList<LimitOrder>();
     for (Entry<String, KrakenOpenOrder> krakenOrder : krakenOrders.entrySet()) {
       String[] descriptionWords = krakenOrder.getValue().getDescription().getOrderDescription().split(" ");
-      OrderType type = descriptionWords[0].equals("buy") ? OrderType.BID : OrderType.ASK;
+      OrderType type = "buy".equals(descriptionWords[0]) ? OrderType.BID : OrderType.ASK;
       BigDecimal tradableAmount = krakenOrder.getValue().getVolume().subtract(krakenOrder.getValue().getVolumeExecuted());
       String tradableIdentifier = KrakenUtils.getCurrency("X" + descriptionWords[2].substring(0, 3));
       String transactionCurrency = KrakenUtils.getCurrency("Z" + descriptionWords[2].substring(3));

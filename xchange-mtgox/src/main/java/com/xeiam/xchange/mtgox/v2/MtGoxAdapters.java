@@ -86,7 +86,7 @@ public final class MtGoxAdapters {
   public static LimitOrder adaptOrder(BigDecimal amount, BigDecimal price, String currency, String orderTypeString, String id, Date timestamp) {
 
     // place a limit order
-    OrderType orderType = orderTypeString.equalsIgnoreCase("bid") ? OrderType.BID : OrderType.ASK;
+    OrderType orderType = "bid".equalsIgnoreCase(orderTypeString) ? OrderType.BID : OrderType.ASK;
     String tradableIdentifier = Currencies.BTC;
     String transactionCurrency = currency;
     BigMoney limitPrice = MoneyUtils.parse(currency + " " + price);
@@ -174,7 +174,7 @@ public final class MtGoxAdapters {
    */
   public static Trade adaptTrade(MtGoxTrade mtGoxTrade) {
 
-    OrderType orderType = mtGoxTrade.getTradeType().equals("bid") ? OrderType.BID : OrderType.ASK;
+    OrderType orderType = "bid".equals(mtGoxTrade.getTradeType()) ? OrderType.BID : OrderType.ASK;
     BigDecimal amount = new BigDecimal(mtGoxTrade.getAmountInt()).divide(new BigDecimal(MtGoxUtils.BTC_VOLUME_AND_AMOUNT_INT_2_DECIMAL_FACTOR));
     String tradableIdentifier = mtGoxTrade.getItem();
     String transactionCurrency = mtGoxTrade.getPriceCurrency();
@@ -186,7 +186,7 @@ public final class MtGoxAdapters {
 
   public static OrderBookUpdate adaptDepthUpdate(MtGoxDepthUpdate mtGoxDepthUpdate) {
 
-    OrderType orderType = mtGoxDepthUpdate.getTradeType().equals("bid") ? OrderType.BID : OrderType.ASK;
+    OrderType orderType = "bid".equals(mtGoxDepthUpdate.getTradeType()) ? OrderType.BID : OrderType.ASK;
     BigDecimal volume = new BigDecimal(mtGoxDepthUpdate.getVolumeInt()).divide(new BigDecimal(MtGoxUtils.BTC_VOLUME_AND_AMOUNT_INT_2_DECIMAL_FACTOR));
     String tradableIdentifier = mtGoxDepthUpdate.getItem();
     String transactionCurrency = mtGoxDepthUpdate.getCurrency();

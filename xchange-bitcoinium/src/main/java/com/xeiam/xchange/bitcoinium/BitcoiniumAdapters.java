@@ -66,7 +66,7 @@ public final class BitcoiniumAdapters {
   public static LimitOrder adaptOrder(BigDecimal amount, BigDecimal price, String currency, String orderTypeString, String id) {
 
     // place a limit order
-    OrderType orderType = orderTypeString.equalsIgnoreCase("bid") ? OrderType.BID : OrderType.ASK;
+    OrderType orderType = "bid".equalsIgnoreCase(orderTypeString) ? OrderType.BID : OrderType.ASK;
     String tradableIdentifier = Currencies.BTC;
     BigMoney limitPrice = MoneyUtils.parse(currency + " " + price);
 
@@ -89,7 +89,7 @@ public final class BitcoiniumAdapters {
 	ArrayList<BigDecimal> priceList;
 	ArrayList<BigDecimal> amountList;
 
-    if(orderType.equals("ask")){
+    if("ask".equals(orderType)){
     	priceList = bitcoiniumOrders.getAskPriceList();
     	amountList = bitcoiniumOrders.getAskVolumeList();  
     } else {

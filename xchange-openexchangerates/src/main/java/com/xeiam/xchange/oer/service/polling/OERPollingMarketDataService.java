@@ -160,7 +160,7 @@ public class OERPollingMarketDataService extends BasePollingExchangeService impl
   private void verify(String tradableIdentifier, String currency) {
 
     Assert.notNull(tradableIdentifier, "tradableIdentifier cannot be null");
-    Assert.isTrue(currency.equals("USD"), "Base curreny must be USD for this exchange");
+    Assert.isTrue("USD".equals(currency), "Base curreny must be USD for this exchange");
     Assert.isTrue(OERUtils.isValidCurrencyPair(new CurrencyPair(tradableIdentifier, currency)), "currencyPair is not valid:" + tradableIdentifier + " " + currency);
 
   }

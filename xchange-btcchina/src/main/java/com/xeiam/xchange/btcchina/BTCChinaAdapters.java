@@ -75,7 +75,7 @@ public final class BTCChinaAdapters {
   public static LimitOrder adaptOrder(BigDecimal amount, BigDecimal price, String currency, String orderTypeString, String id) {
 
     // place a limit order
-    OrderType orderType = orderTypeString.equalsIgnoreCase("bid") ? OrderType.BID : OrderType.ASK;
+    OrderType orderType = "bid".equalsIgnoreCase(orderTypeString) ? OrderType.BID : OrderType.ASK;
     String tradableIdentifier = Currencies.BTC;
     BigMoney limitPrice = MoneyUtils.parse(currency + " " + price);
 
@@ -225,7 +225,7 @@ public final class BTCChinaAdapters {
     if (orders != null) {
       for (BTCChinaOrder order : orders) {
         System.out.println(order);
-        if (order.getStatus().equals("open")) {
+        if ("open".equals(order.getStatus())) {
           LimitOrder limitOrder = adaptLimitOrder(order);
           if (limitOrder != null) {
             limitOrders.add(limitOrder);
@@ -245,7 +245,7 @@ public final class BTCChinaAdapters {
    */
   public static LimitOrder adaptLimitOrder(BTCChinaOrder order) {
 
-    Order.OrderType orderType = order.getType().equals("bid") ? Order.OrderType.BID : Order.OrderType.ASK;
+    Order.OrderType orderType = "bid".equals(order.getType()) ? Order.OrderType.BID : Order.OrderType.ASK;
     BigDecimal amount = order.getAmount();
     String id = Long.toString(order.getId());
     Date date = new Date(order.getDate() * 1000);

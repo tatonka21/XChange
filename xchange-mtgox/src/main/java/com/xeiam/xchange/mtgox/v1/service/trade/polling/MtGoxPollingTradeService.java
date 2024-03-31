@@ -115,7 +115,7 @@ public class MtGoxPollingTradeService extends BasePollingExchangeService impleme
 
     MtGoxGenericResponse mtGoxGenericResponse = mtGoxV1.cancelOrder(exchangeSpecification.getApiKey(), paramsDigest, getNonce(), orderId);
 
-    return mtGoxGenericResponse.getResult().equals("success");
+    return "success".equals(mtGoxGenericResponse.getResult());
   }
 
   private void verify(Order order) {

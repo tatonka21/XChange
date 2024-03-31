@@ -76,10 +76,10 @@ public class MtGoxPollingAccountService extends BasePollingExchangeService imple
 
     try {
       MtGoxAccountInfoWrapper mtGoxAccountInfoWrapper = mtGoxV2.getAccountInfo(exchangeSpecification.getApiKey(), signatureCreator, MtGoxUtils.getNonce());
-      if (mtGoxAccountInfoWrapper.getResult().equals("success")) {
+      if ("success".equals(mtGoxAccountInfoWrapper.getResult())) {
         return MtGoxAdapters.adaptAccountInfo(mtGoxAccountInfoWrapper.getMtGoxAccountInfo());
       }
-      else if (mtGoxAccountInfoWrapper.getResult().equals("error")) {
+      else if ("error".equals(mtGoxAccountInfoWrapper.getResult())) {
         throw new ExchangeException("Error calling getAccountInfo(): " + mtGoxAccountInfoWrapper.getError());
       }
       else {
@@ -98,10 +98,10 @@ public class MtGoxPollingAccountService extends BasePollingExchangeService imple
           mtGoxV2.withdrawBtc(exchangeSpecification.getApiKey(), signatureCreator, MtGoxUtils.getNonce(), address, amount.multiply(
               new BigDecimal(MtGoxUtils.BTC_VOLUME_AND_AMOUNT_INT_2_DECIMAL_FACTOR)).intValue(), 1, false, false);
 
-      if (mtGoxWithdrawalResponseWrapper.getResult().equals("success")) {
+      if ("success".equals(mtGoxWithdrawalResponseWrapper.getResult())) {
         return mtGoxWithdrawalResponseWrapper.getMtGoxWithdrawalResponse().getTransactionId();
       }
-      else if (mtGoxWithdrawalResponseWrapper.getResult().equals("error")) {
+      else if ("error".equals(mtGoxWithdrawalResponseWrapper.getResult())) {
         throw new ExchangeException("Error calling withdrawFunds(): " + mtGoxWithdrawalResponseWrapper.getError());
       }
       else {
@@ -120,10 +120,10 @@ public class MtGoxPollingAccountService extends BasePollingExchangeService imple
     try {
       MtGoxBitcoinDepositAddressWrapper mtGoxBitcoinDepositAddressWrapper =
           mtGoxV2.requestDepositAddress(exchangeSpecification.getApiKey(), signatureCreator, MtGoxUtils.getNonce(), description, notificationUrl);
-      if (mtGoxBitcoinDepositAddressWrapper.getResult().equals("success")) {
+      if ("success".equals(mtGoxBitcoinDepositAddressWrapper.getResult())) {
         return mtGoxBitcoinDepositAddressWrapper.getMtGoxBitcoinDepositAddress().getAddres();
       }
-      else if (mtGoxBitcoinDepositAddressWrapper.getResult().equals("error")) {
+      else if ("error".equals(mtGoxBitcoinDepositAddressWrapper.getResult())) {
         throw new ExchangeException("Error calling requestBitcoinDepositAddress(): " + mtGoxBitcoinDepositAddressWrapper.getError());
       }
       else {

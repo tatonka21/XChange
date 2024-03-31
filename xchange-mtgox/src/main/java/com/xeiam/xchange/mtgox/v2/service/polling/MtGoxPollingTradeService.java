@@ -75,10 +75,10 @@ public class MtGoxPollingTradeService extends BasePollingExchangeService impleme
     try {
       MtGoxOpenOrderWrapper mtGoxOpenOrderWrapper = mtGoxV2.getOpenOrders(MtGoxUtils.urlEncode(exchangeSpecification.getApiKey()), signatureCreator, MtGoxUtils.getNonce());
 
-      if (mtGoxOpenOrderWrapper.getResult().equals("success")) {
+      if ("success".equals(mtGoxOpenOrderWrapper.getResult())) {
         return new OpenOrders(MtGoxAdapters.adaptOrders(mtGoxOpenOrderWrapper.getMtGoxOpenOrders()));
       }
-      else if (mtGoxOpenOrderWrapper.getResult().equals("error")) {
+      else if ("error".equals(mtGoxOpenOrderWrapper.getResult())) {
         throw new ExchangeException("Error calling getOpenOrders(): " + mtGoxOpenOrderWrapper.getError());
       }
       else {
@@ -99,10 +99,10 @@ public class MtGoxPollingTradeService extends BasePollingExchangeService impleme
           mtGoxV2.placeOrder(exchangeSpecification.getApiKey(), signatureCreator, MtGoxUtils.getNonce(), marketOrder.getTradableIdentifier(), marketOrder.getTransactionCurrency(), marketOrder
               .getType().equals(OrderType.BID) ? "bid" : "ask", marketOrder.getTradableAmount().multiply(new BigDecimal(MtGoxUtils.BTC_VOLUME_AND_AMOUNT_INT_2_DECIMAL_FACTOR)), null);
 
-      if (mtGoxGenericResponse.getResult().equals("success")) {
+      if ("success".equals(mtGoxGenericResponse.getResult())) {
         return mtGoxGenericResponse.getDataString();
       }
-      else if (mtGoxGenericResponse.getResult().equals("error")) {
+      else if ("error".equals(mtGoxGenericResponse.getResult())) {
         throw new ExchangeException("Error calling placeMarketOrder(): " + mtGoxGenericResponse.getError());
       }
       else {
@@ -131,10 +131,10 @@ public class MtGoxPollingTradeService extends BasePollingExchangeService impleme
     try {
       MtGoxGenericResponse mtGoxGenericResponse = mtGoxV2.placeOrder(exchangeSpecification.getApiKey(), signatureCreator, MtGoxUtils.getNonce(), tradableIdentifier, currency, type, amount, price);
 
-      if (mtGoxGenericResponse.getResult().equals("success")) {
+      if ("success".equals(mtGoxGenericResponse.getResult())) {
         return mtGoxGenericResponse.getDataString();
       }
-      else if (mtGoxGenericResponse.getResult().equals("error")) {
+      else if ("error".equals(mtGoxGenericResponse.getResult())) {
         throw new ExchangeException("Error calling placeLimitOrder(): " + mtGoxGenericResponse.getError());
       }
       else {
@@ -154,10 +154,10 @@ public class MtGoxPollingTradeService extends BasePollingExchangeService impleme
 
       MtGoxGenericResponse mtGoxGenericResponse = mtGoxV2.cancelOrder(exchangeSpecification.getApiKey(), signatureCreator, MtGoxUtils.getNonce(), orderId);
 
-      if (mtGoxGenericResponse.getResult().equals("success")) {
+      if ("success".equals(mtGoxGenericResponse.getResult())) {
         return true;
       }
-      else if (mtGoxGenericResponse.getResult().equals("error")) {
+      else if ("error".equals(mtGoxGenericResponse.getResult())) {
         throw new ExchangeException("Error calling cancelOrder(): " + mtGoxGenericResponse.getError());
       }
       else {

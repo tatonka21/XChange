@@ -65,7 +65,7 @@ public final class BitcurexAdapters {
   public static LimitOrder adaptOrder(BigDecimal amount, BigDecimal price, String currency, String orderTypeString, String id) {
 
     // place a limit order
-    OrderType orderType = orderTypeString.equalsIgnoreCase("bid") ? OrderType.BID : OrderType.ASK;
+    OrderType orderType = "bid".equalsIgnoreCase(orderTypeString) ? OrderType.BID : OrderType.ASK;
     String tradableIdentifier = Currencies.BTC;
     BigMoney limitPrice = MoneyUtils.parse(currency + " " + price);
 

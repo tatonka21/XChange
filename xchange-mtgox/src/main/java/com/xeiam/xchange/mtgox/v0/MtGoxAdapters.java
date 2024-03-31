@@ -70,7 +70,7 @@ public final class MtGoxAdapters {
   public static LimitOrder adaptOrder(BigDecimal amount, BigDecimal price, String currency, String orderTypeString, String id) {
 
     // place a limit order
-    OrderType orderType = orderTypeString.equalsIgnoreCase("bid") ? OrderType.BID : OrderType.ASK;
+    OrderType orderType = "bid".equalsIgnoreCase(orderTypeString) ? OrderType.BID : OrderType.ASK;
     String tradableIdentifier = Currencies.BTC;
     BigMoney limitPrice = MoneyUtils.parse(currency + " " + price);
 
@@ -110,7 +110,7 @@ public final class MtGoxAdapters {
    */
   public static Trade adaptTrade(MtGoxTrades mtGoxTrade) {
 
-    OrderType orderType = mtGoxTrade.getTrade_type().equals("bid") ? OrderType.BID : OrderType.ASK;
+    OrderType orderType = "bid".equals(mtGoxTrade.getTrade_type()) ? OrderType.BID : OrderType.ASK;
     BigDecimal amount = new BigDecimal(mtGoxTrade.getAmount_int()).divide(new BigDecimal(MtGoxUtils.BTC_VOLUME_AND_AMOUNT_INT_2_DECIMAL_FACTOR));
     String tradableIdentifier = mtGoxTrade.getItem();
     String transactionCurrency = mtGoxTrade.getPrice_currency();

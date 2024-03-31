@@ -123,7 +123,7 @@ public class MtGoxWebSocketSyncronizedOrderBookDemo {
 
           else if (exchangeEvent.getEventType() == ExchangeEventType.DEPTH) {
             OrderBookUpdate update = (OrderBookUpdate) exchangeEvent.getPayload();
-            if (update.getLimitOrder().getTransactionCurrency().equals("USD") && MarketDataRunnable.lastTicker != null) {
+            if ("USD".equals(update.getLimitOrder().getTransactionCurrency()) && MarketDataRunnable.lastTicker != null) {
               MarketDataRunnable.orderBook.update(update);
               if (MarketDataRunnable.orderBook.getAsks().get(0).getLimitPrice().compareTo(MarketDataRunnable.lastTicker.getAsk()) != 0) {
                 System.out.println("ERROR IN ORDERBOOK (ASKS) -> BOOK PRICE:" + MarketDataRunnable.orderBook.getAsks().get(0).getLimitPrice().getAmount().doubleValue() + " TICKER PRICE:"

@@ -78,7 +78,7 @@ public final class BTCEAdapters {
   public static LimitOrder adaptOrder(BigDecimal amount, BigDecimal price, String tradableIdentifier, String currency, String orderTypeString, String id) {
 
     // place a limit order
-    OrderType orderType = orderTypeString.equalsIgnoreCase("bid") ? OrderType.BID : OrderType.ASK;
+    OrderType orderType = "bid".equalsIgnoreCase(orderTypeString) ? OrderType.BID : OrderType.ASK;
     BigMoney limitPrice;
     limitPrice = MoneyUtils.parse(currency + " " + price);
 
@@ -102,7 +102,7 @@ public final class BTCEAdapters {
     for (BigDecimal[] btceOrder : BTCEOrders) {
       // Bid orderbook is reversed order. Insert at index 0 instead of
       // appending
-      if (orderType.equalsIgnoreCase("bid")) {
+      if ("bid".equalsIgnoreCase(orderType)) {
         limitOrders.add(0, adaptOrder(btceOrder[1], btceOrder[0], tradableIdentifier, currency, orderType, id));
       }
       else {
